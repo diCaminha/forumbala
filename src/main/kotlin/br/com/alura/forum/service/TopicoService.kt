@@ -11,6 +11,7 @@ import br.com.alura.forum.repository.TopicoRepository
 import org.springframework.stereotype.Service
 import java.util.*
 import java.util.stream.Collectors
+import javax.transaction.Transactional
 
 @Service
 class TopicoService(
@@ -31,12 +32,14 @@ class TopicoService(
         return topicoViewMapper.map(topico)
     }
 
+    @Transactional
     fun cadastrar(form: NovoTopicoForm): TopicoView {
         val topico = topicoFormMapper.map(form)
         topicoRepository.save(topico)
         return topicoViewMapper.map(topico)
     }
 
+    @Transactional
     fun atualizar(form: AtualizacaoTopicoForm): TopicoView {
         val topico = topicoRepository.findById(form.id).orElseThrow{NotFoundException(notFoundMessage)}
 
@@ -46,6 +49,7 @@ class TopicoService(
         return topicoViewMapper.map(topico)
     }
 
+    @Transactional
     fun deletar(id: Long) {
         topicoRepository.deleteById(id)
     }
