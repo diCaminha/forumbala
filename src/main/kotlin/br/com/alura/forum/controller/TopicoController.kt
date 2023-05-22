@@ -2,6 +2,7 @@ package br.com.alura.forum.controller
 
 import br.com.alura.forum.dto.AtualizacaoTopicoForm
 import br.com.alura.forum.dto.NovoTopicoForm
+import br.com.alura.forum.dto.TopicoPorCategoria
 import br.com.alura.forum.dto.TopicoView
 import br.com.alura.forum.service.TopicoService
 import org.springframework.data.domain.Page
@@ -48,5 +49,10 @@ class TopicoController(private val service: TopicoService) {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun deletar(@PathVariable id: Long) {
         service.deletar(id)
+    }
+
+    @GetMapping("/relatorio")
+    fun geraRelatorio(): List<TopicoPorCategoria> {
+        return service.relatorio()
     }
 }
